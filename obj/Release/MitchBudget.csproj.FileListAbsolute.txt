@@ -1,0 +1,14 @@
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\bin\Release\MitchBudget.exe.config
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\bin\Release\MitchBudget.exe
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\bin\Release\MitchBudget.pdb
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MainWindow.g.cs
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\App.g.cs
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget_MarkupCompile.cache
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget_MarkupCompile.lref
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MainWindow.baml
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.g.resources
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.Properties.Resources.resources
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.csproj.GenerateResource.cache
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.csproj.CoreCompileInputs.cache
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.exe
+C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\obj\Release\MitchBudget.pdb
