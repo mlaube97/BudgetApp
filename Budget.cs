@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Serialization;
 
 namespace MitchBudget
 {
-    public class Budget
+    public class Input_Budget
     {
         private string _name;
         private float _amount;
@@ -33,7 +33,11 @@ namespace MitchBudget
             get { return _amount - _remaining; }
         }
 
-        public Budget(string name, float amount, float remaining)
+        public Input_Budget()
+        {
+
+        }
+        public Input_Budget(string name, float amount, float remaining)
         {
             _name = name;
             _amount = amount;

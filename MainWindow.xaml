@@ -7,23 +7,47 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="651.89" Width="1080.362" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
     <Canvas x:Name="canvasMain" HorizontalAlignment="Left" Height="623" VerticalAlignment="Top" Width="1070" Margin="0,0,0,-0.6">
-        <Label x:Name="labelMyBudget" Content="MyBudget" Canvas.Left="10" Canvas.Top="25" Height="61" Width="240" Background="#00000000" Foreground="White" FontFamily="Britannic Bold" FontSize="48"/>
+        <Label x:Name="labelMyBudget" Content="MyBudget" Canvas.Left="18" Canvas.Top="10" Height="61" Width="240" Background="#00000000" Foreground="White" FontFamily="Britannic Bold" FontSize="48"/>
         <Canvas Height="156" Canvas.Left="10" Canvas.Top="91" Width="232" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <Label x:Name="labelName" Content="Name: " Canvas.Left="11" Canvas.Top="37" Width="48" Height="24"/>
             <Label x:Name="labelAmount" Content="Amount:" Canvas.Left="11" Canvas.Top="61" Width="65" Height="24"/>
             <Label x:Name="labelRemaining" Content="Remaining:" Canvas.Left="11" Canvas.Top="85" Width="83" Height="24"/>
-            <TextBox x:Name="textboxName" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="40" Width="120"/>
-            <TextBox x:Name="textboxAmount" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="63" Width="120"/>
-            <TextBox x:Name="textboxRemaining" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="86" Width="120"/>
-            <Button x:Name="buttonCreateBudget" Canvas.Left="76" Canvas.Top="117" Width="90" Height="29" Content="Create Budget" Click="buttonCreateBudget_Click"/>
+            <TextBox x:Name="textboxName" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="40" Width="120" Text="test"/>
+            <TextBox x:Name="textboxAmount" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="63" Width="120" Text="100"/>
+            <TextBox x:Name="textboxRemaining" Height="23" Canvas.Left="94" TextWrapping="Wrap" Canvas.Top="86" Width="120" Text="20"/>
+            <Button x:Name="buttonCreateBudget" Canvas.Left="76" Canvas.Top="117" Width="90" Height="29" Content="Create Budget" Click="buttonCreateBudget_Click" Cursor="Help"/>
             <Label x:Name="labelCreateBudget" Content="Add New Budget" Canvas.Left="52" Width="162" Height="37" FontSize="18"/>
         </Canvas>
-        <DataGrid x:Name="gridBudget" ItemsSource="{Binding budgets}" Height="361" Canvas.Left="10" Canvas.Top="252" Width="240" Background="White">
+        <DataGrid x:Name="gridBudget" ItemsSource="{Binding budgets}" Height="361" Canvas.Left="10" Canvas.Top="252" Width="232" Background="White">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <EventSetter Event="PreviewMouseDown" Handler="DataGridCell_PreviewMouseDown"></EventSetter>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridRow_PreviewMouseLeftButtonDown"></EventSetter>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
                 <DataGridTextColumn Header="Remaining" Binding="{Binding Remaining}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Canvas Height="156" Canvas.Left="247" Canvas.Top="252" Width="227">
+            <Canvas.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+            </Canvas.Background>
+            <TextBox x:Name="TextBox_TransactionAmount" Height="23" Canvas.Left="46" TextWrapping="Wrap" Text="...Enter a Value" Canvas.Top="89" Width="120" Cursor="IBeam"/>
+            <Button x:Name="Button_Spend" Content="Spend" Canvas.Left="10" Canvas.Top="127" Width="75" Background="#FFED4949" Cursor="Hand"/>
+            <Button x:Name="Button_Receive" Content="Receive" Canvas.Left="142" Canvas.Top="127" Width="75" Background="#FF59C544" Cursor="Hand"/>
+            <Label x:Name="labelName_Transaction" Content="Name: " Canvas.Left="10" Canvas.Top="2" Width="48" Height="24"/>
+            <Label x:Name="labelAmount_Transaction" Content="Amount:" Canvas.Left="10" Canvas.Top="26" Width="65" Height="24"/>
+            <Label x:Name="labelRemaining_Transaction" Content="Remaining:" Canvas.Left="10" Canvas.Top="50" Width="83" Height="24"/>
+            <Label x:Name="labelName_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="2"/>
+            <Label x:Name="labelAmount_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="24"/>
+            <Label x:Name="labelRemaining_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="48"/>
+        </Canvas>
     </Canvas>
 </Window>
