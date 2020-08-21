@@ -49,5 +49,6 @@
             <Label x:Name="labelAmount_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="24"/>
             <Label x:Name="labelRemaining_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="48"/>
         </Canvas>
+        <Button x:Name="buttonSave" Content="Save" Canvas.Left="383" Canvas.Top="46" Width="75" Click="buttonSave_Click"/>
     </Canvas>
 </Window>

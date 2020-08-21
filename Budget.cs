@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace MitchBudget
 {
-    public class Input_Budget
+    public class Budget
     {
         private string _name;
         private float _amount;
@@ -33,11 +33,11 @@ namespace MitchBudget
             get { return _amount - _remaining; }
         }
 
-        public Input_Budget()
+        public Budget()
         {
 
         }
-        public Input_Budget(string name, float amount, float remaining)
+        public Budget(string name, float amount, float remaining)
         {
             _name = name;
             _amount = amount;
