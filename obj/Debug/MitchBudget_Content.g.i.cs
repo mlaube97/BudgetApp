@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("490422.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("budgetlist.xml")]
 
 

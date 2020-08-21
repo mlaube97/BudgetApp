@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using MitchBudget.Properties;
+using System.Runtime.Remoting.Channels;
 
 namespace MitchBudget
 {
@@ -25,13 +27,23 @@ namespace MitchBudget
     {
         List<Input_Budget> budgets = new List<Input_Budget>();
         Dictionary<DataGridRow, Input_Budget> row_to_budgets = new Dictionary<DataGridRow, Input_Budget>();
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
+        string path = @"C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\budgetlist.xml";
+
+        XmlNode Budgets;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            System.IO.FileStream file = System.IO.File.Create(path);
+            LoadBudget(path);
+        }
+
+        private void LoadBudget(string path)
+        {
+            Reader reader = new Reader();
+            reader.ReadXML(path);
+            Budgets = reader.All;
+            int i = Budgets.ChildNodes.Count;
         }
 
         private void buttonCreateBudget_Click(object sender, RoutedEventArgs e)
@@ -43,7 +55,6 @@ namespace MitchBudget
                 Input_Budget budget = new Input_Budget(textboxName.Text, (float)Convert.ToDouble(textboxAmount.Text), (float)Convert.ToDouble(textboxRemaining.Text));
                 budgets.Add(budget);
                 XmlSerializer x = new XmlSerializer(budget.GetType());
-                x.Serialize(Console.Out, budget);
                 gridBudget.Items.Add(budget);
             }
         }
