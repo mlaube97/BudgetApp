@@ -19,11 +19,6 @@
             <Label x:Name="labelCreateBudget" Content="Add New Budget" Canvas.Left="52" Width="162" Height="37" FontSize="18"/>
         </Canvas>
         <DataGrid x:Name="gridBudget" ItemsSource="{Binding budgets}" Height="361" Canvas.Left="10" Canvas.Top="252" Width="232" Background="White" CellEditEnding="gridBudget_CellEditEnding">
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <EventSetter Event="PreviewMouseDown" Handler="DataGridCell_PreviewMouseDown"></EventSetter>
-                </Style>
-            </DataGrid.CellStyle>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridRow_PreviewMouseLeftButtonDown"></EventSetter>
@@ -35,21 +30,36 @@
                 <DataGridTextColumn Header="Remaining" Binding="{Binding Remaining}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Canvas Height="156" Canvas.Left="247" Canvas.Top="252" Width="227">
+        <Canvas Height="177" Canvas.Left="247" Canvas.Top="252" Width="227">
             <Canvas.Background>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
             </Canvas.Background>
-            <TextBox x:Name="TextBox_TransactionAmount" Height="23" Canvas.Left="46" TextWrapping="Wrap" Text="51" Canvas.Top="89" Width="120" Cursor="IBeam"/>
-            <Button x:Name="Button_Spend" Content="Spend" Canvas.Left="10" Canvas.Top="127" Width="75" Background="#FFED4949" Cursor="Hand" Click="Button_Spend_Click"/>
-            <Button x:Name="Button_Receive" Content="Receive" Canvas.Left="142" Canvas.Top="127" Width="75" Background="#FF59C544" Cursor="Hand" Click="Button_Receive_Click"/>
+            <TextBox x:Name="TextBox_TransactionAmount" Height="23" Canvas.Left="45" TextWrapping="Wrap" Text="51" Canvas.Top="111" Width="120" Cursor="IBeam"/>
+            <Button x:Name="Button_Spend" Content="Spend" Canvas.Left="10" Canvas.Top="148" Width="75" Background="#FFED4949" Cursor="Hand" Click="Button_Spend_Click"/>
+            <Button x:Name="Button_Receive" Content="Receive" Canvas.Left="142" Canvas.Top="148" Width="75" Background="#FF59C544" Cursor="Hand" Click="Button_Receive_Click"/>
             <Label x:Name="labelName_Transaction" Content="Name: " Canvas.Left="10" Canvas.Top="2" Width="48" Height="24"/>
             <Label x:Name="labelAmount_Transaction" Content="Amount:" Canvas.Left="10" Canvas.Top="26" Width="65" Height="24"/>
             <Label x:Name="labelRemaining_Transaction" Content="Remaining:" Canvas.Left="10" Canvas.Top="50" Width="83" Height="24"/>
             <Label x:Name="labelName_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="2"/>
             <Label x:Name="labelAmount_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="24"/>
             <Label x:Name="labelRemaining_Transaction_Value" Content="..." Canvas.Left="104" Canvas.Top="48"/>
+            <Label x:Name="labelRemaining_Transaction_Copy" Content="Description:" Canvas.Left="10" Canvas.Top="74" Width="83" Height="24"/>
+            <TextBox x:Name="textboxDescription" Height="22" Canvas.Left="104" TextWrapping="Wrap" Canvas.Top="74" Width="120"/>
         </Canvas>
         <Button x:Name="buttonSave" Content="Save" Canvas.Left="247" Canvas.Top="10" Width="75" Click="buttonSave_Click"/>
         <Button x:Name="buttonRemove" Content="Remove" Canvas.Left="158" Canvas.Top="584" Width="75" Click="buttonRemove_Click"/>
+        <DataGrid x:Name="gridTransactions" ItemsSource="{Binding transactions}" Height="361" Canvas.Left="479" Canvas.Top="252" Width="232" Background="White" CellEditEnding="gridTransactions_CellEditEnding">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="TransactionGridRow_PreviewMouseLeftButtonDown"></EventSetter>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Canvas>
 </Window>

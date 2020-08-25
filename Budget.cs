@@ -36,11 +36,18 @@ namespace MitchBudget
             set { _remaining = value; }
         }
 
+        private List<Transaction> _transactions;
+
+        public List<Transaction> Transactions
+        {
+            get { return _transactions; }
+            set { _transactions = value; }
+        }
         public Budget()
         {
 
         }
-        public Budget(string name, float amount, float remaining)
+        public Budget(string name = "N/A", float amount = 0, float remaining = 0)
         {
             _name = name;
             _amount = amount;
@@ -57,11 +64,22 @@ namespace MitchBudget
             _remaining += value;
         }
 
+        public void AddTransaction(Transaction transaction)
+        {
+            Transactions.Add(transaction);
+        }
+
+        public void RemoveTransaction(Transaction transaction)
+        {
+            Transactions.Remove(transaction);
+        }
+
         public void Inherit(Budget budget)
         {
             _name = budget.Name;
             _amount = budget.Amount;
             _remaining = budget.Remaining;
+            _transactions = budget.Transactions;
         }
 
         public Budget Duplicate()

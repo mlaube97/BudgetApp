@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Budget>
-    <Name>test</Name>
+    <Name>Food</Name>
+    <Amount>450</Amount>
+    <Remaining>450</Remaining>
+    <Transactions />
+  </Budget>
+  <Budget>
+    <Name>Fun</Name>
+    <Amount>300</Amount>
+    <Remaining>300</Remaining>
+    <Transactions />
+  </Budget>
+  <Budget>
+    <Name>Gas</Name>
     <Amount>100</Amount>
-    <Remaining>20</Remaining>
+    <Remaining>125</Remaining>
+    <Transactions>
+      <Transaction>
+        <Description>QT</Description>
+        <Type>0</Type>
+        <Amount>10</Amount>
+        <Date>N/A</Date>
+      </Transaction>
+      <Transaction>
+        <Description>Giftcard</Description>
+        <Type>1</Type>
+        <Amount>35</Amount>
+        <Date>N/A</Date>
+      </Transaction>
+    </Transactions>
   </Budget>
 </ArrayOfBudget>
