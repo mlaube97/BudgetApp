@@ -1,18 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Budgets>
-	<Budget name="Food">
-		<Name>Food</Name>
-		<Amount>450</Amount>
-		<Remaining>450</Remaining>
-	</Budget>
-	<Budget name="Fun">
-		<Name>Food</Name>
-		<Amount>300</Amount>
-		<Remaining>300</Remaining>
-	</Budget>
-	<Budget name="Gas">
-		<Name>Gas</Name>
-		<Amount>100</Amount>
-		<Remaining>100</Remaining>
-	</Budget>
-</Budgets>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Budget>
+    <Name>test</Name>
+    <Amount>100</Amount>
+    <Remaining>20</Remaining>
+  </Budget>
+</ArrayOfBudget>

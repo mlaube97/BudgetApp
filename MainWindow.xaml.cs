@@ -17,6 +17,7 @@ using System.Xml;
 using System.IO;
 using MitchBudget.Properties;
 using System.Runtime.Remoting.Channels;
+using System.Text.RegularExpressions;
 
 namespace MitchBudget
 {
@@ -31,39 +32,26 @@ namespace MitchBudget
 
         XmlNode BudgetsNode;
 
+        Budget selectedBudget = new Budget("N/A", 0, 0);
+
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadBudgetXML(path);
-            budgets = SetBudget(BudgetsNode);
+            budgets = SetBudget(path);
             SetDataGrid();
         }
 
-        private void LoadBudgetXML(string path)
+        private List<Budget> SetBudget(string path)
         {
             Reader reader = new Reader();
-            reader.ReadXML(path);
-            BudgetsNode = reader.All;
-        }
-
-        private List<Budget> SetBudget(XmlNode budgets)
-        {
-            List<Budget> budget_list = new List<Budget>();
-            foreach(XmlNode budget in budgets.ChildNodes)
-            {
-                XmlNodeList values = budget.ChildNodes;
-                string name = values[0].InnerText;
-                float amount = (float)Convert.ToDouble(values[1].InnerText);
-                float remaining = (float)Convert.ToDouble(values[2].InnerText);
-                budget_list.Add(new Budget(name, amount, remaining));
-            }
-            return budget_list;
+            return reader.ReadXML(path);
         }
 
         private void SetDataGrid()
         {
-            foreach(Budget budget in budgets)
+            gridBudget.Items.Clear();
+            foreach (Budget budget in budgets)
             {
                 gridBudget.Items.Add(budget);
             }
@@ -78,8 +66,8 @@ namespace MitchBudget
             {
                 Budget budget = new Budget(textboxName.Text, (float)Convert.ToDouble(textboxAmount.Text), (float)Convert.ToDouble(textboxRemaining.Text));
                 budgets.Add(budget);
-                XmlSerializer x = new XmlSerializer(budget.GetType());
                 gridBudget.Items.Add(budget);
+                SetDataGrid();
             }
         }
 
@@ -95,11 +83,53 @@ namespace MitchBudget
             labelAmount_Transaction_Value.Content = budget.Amount;
             labelName_Transaction_Value.Content = budget.Name;
             labelRemaining_Transaction_Value.Content = budget.Remaining;
+            selectedBudget.Inherit(budget);
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
+            Reader reader = new Reader();
+            reader.WriteXML(budgets, path);
+        }
 
+        private void Button_Spend_Click(object sender, RoutedEventArgs e)
+        {
+            Budget tempBudget = selectedBudget.Duplicate();
+            selectedBudget.Spend((float)Convert.ToDouble(TextBox_TransactionAmount.Text));
+            foreach (Budget budget in budgets)
+            {
+                if (Budget.Equals(budget,tempBudget))
+                {
+                    budget.Inherit(selectedBudget);
+                    SetDataGrid();
+                }
+            }
+        }
+
+        private void Button_Receive_Click(object sender, RoutedEventArgs e)
+        {
+            Budget tempBudget = selectedBudget.Duplicate();
+            selectedBudget.Receive((float)Convert.ToDouble(TextBox_TransactionAmount.Text));
+            foreach (Budget budget in budgets)
+            {
+                if (Budget.Equals(budget,tempBudget))
+                {
+                    budget.Inherit(selectedBudget);
+                    SetDataGrid();
+                }
+            }
+        }
+
+        private void gridBudget_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            SetDataGrid();
+        }
+
+        private void buttonRemove_Click(object sender, RoutedEventArgs e)
+        {
+            Budget budget = gridBudget.SelectedItem as Budget;
+            budgets.Remove(budget);
+            gridBudget.Items.Remove(gridBudget.SelectedItem);
         }
     }
 }

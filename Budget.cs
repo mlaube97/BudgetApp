@@ -13,6 +13,13 @@ namespace MitchBudget
         private float _amount;
         private float _remaining;
 
+        public enum Fields
+        {
+            Name,
+            Amount,
+            Remaining
+        }
+
         public string Name
         {
             get { return _name; }
@@ -28,10 +35,6 @@ namespace MitchBudget
             get { return _remaining; }
             set { _remaining = value; }
         }
-        public float Surplus
-        {
-            get { return _amount - _remaining; }
-        }
 
         public Budget()
         {
@@ -46,11 +49,34 @@ namespace MitchBudget
         public void Spend(float value)
         {
             _remaining -= value;
+
         }
 
         public void Receive(float value)
         {
             _remaining += value;
+        }
+
+        public void Inherit(Budget budget)
+        {
+            _name = budget.Name;
+            _amount = budget.Amount;
+            _remaining = budget.Remaining;
+        }
+
+        public Budget Duplicate()
+        {
+            Budget budget = new Budget(_name,_amount,_remaining);
+            return budget;
+        }
+
+        public static bool Equals(Budget budget1, Budget budget2)
+        {
+            bool name = budget1.Name == budget2.Name;
+            bool remaining = budget1.Remaining == budget2.Remaining;
+            bool amount = budget1.Amount == budget2.Amount;
+            bool equals = name && remaining && amount;
+            return equals;
         }
 
     }

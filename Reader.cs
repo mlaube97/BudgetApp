@@ -1,10 +1,13 @@
-﻿using System;
+﻿using MitchBudget.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace MitchBudget
 {
@@ -12,19 +15,22 @@ namespace MitchBudget
     {
         public XmlNode All;
 
-        public void ReadXML(string path)
+        public List<Budget> ReadXML(string path)
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.ConformanceLevel = ConformanceLevel.Fragment;
-            settings.IgnoreWhitespace = true;
-            settings.IgnoreComments = true;
-            XmlReader reader = XmlReader.Create(path, settings);
+            XmlSerializer xs = new XmlSerializer(typeof(List<Budget>));
+            List<Budget> budgets = new List<Budget>();
+            using (var sr = new StreamReader(path))
+            {
+                budgets = (List<Budget>)xs.Deserialize(sr);
+            }
+            return budgets;
+        }
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-            XmlNode topNode = doc.LastChild;
-
-            All = topNode;
+        public void WriteXML(List<Budget> budgets, string path)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<Budget>));
+            TextWriter tw = new StreamWriter(path);
+            xs.Serialize(tw, budgets);
         }
     }
 }
