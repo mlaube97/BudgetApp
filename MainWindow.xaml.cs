@@ -18,6 +18,7 @@ using System.IO;
 using MitchBudget.Properties;
 using System.Runtime.Remoting.Channels;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace MitchBudget
 {
@@ -81,6 +82,7 @@ namespace MitchBudget
 
         private void DataGridRow_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            buttonRemove.IsEnabled = true;
             DataGridRow row = sender as DataGridRow;
             Budget budget = budgets[row.GetIndex()];
             labelAmount_Transaction_Value.Content = budget.Amount;
@@ -89,6 +91,18 @@ namespace MitchBudget
             selectedBudget.Inherit(budget);
             SetTransactionGrid();
         }
+        #region Load and Save
+        private void buttonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = Global.projectPath;
+            dialog.Title = "Open Budget File";
+            dialog.ShowDialog();
+            budgets = SetBudget(dialog.FileName);
+            SetBudgetGrid();
+            SetTransactionGrid();
+
+        }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
@@ -96,6 +110,19 @@ namespace MitchBudget
             reader.WriteXML(budgets, path);
         }
 
+        private void buttonLoadDefault_Click(object sender, RoutedEventArgs e)
+        {
+            budgets = SetBudget(Global.defaultFile);
+            SetBudgetGrid();
+            SetTransactionGrid();
+        }
+        private void buttonSaveDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Reader reader = new Reader();
+            reader.WriteXML(budgets, Global.defaultFile);
+        }
+        #endregion
+        #region Button Clicks
         private void Button_Spend_Click(object sender, RoutedEventArgs e)
         {
             Budget tempBudget = selectedBudget.Duplicate();
@@ -145,19 +172,34 @@ namespace MitchBudget
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
         {
-            Budget budget = gridBudget.SelectedItem as Budget;
-            budgets.Remove(budget);
-            gridBudget.Items.Remove(gridBudget.SelectedItem);
-        }
-
-        private void gridTransactions_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-
+            if (buttonRemove.IsEnabled)
+            {
+                Budget budget = gridBudget.SelectedItem as Budget;
+                budgets.Remove(budget);
+                gridBudget.Items.Remove(gridBudget.SelectedItem);
+                buttonRemove.IsEnabled = false;
+            }
         }
 
         private void TransactionGridRow_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (!buttonTransactionRemove.IsEnabled)
+                buttonTransactionRemove.IsEnabled = true;
+            else
+                buttonTransactionRemove.IsEnabled = false;
         }
+
+        private void buttonTransactionRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (buttonTransactionRemove.IsEnabled)
+            {
+                buttonTransactionRemove.IsEnabled = false;
+                Transaction transaction = gridTransactions.SelectedItem as Transaction;
+                selectedBudget.RemoveTransaction(transaction);
+                transactions.Remove(transaction);
+                SetTransactionGrid();
+            }
+        }
+        #endregion
     }
 }

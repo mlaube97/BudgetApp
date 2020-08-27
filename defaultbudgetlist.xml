@@ -3,15 +3,8 @@
   <Budget>
     <Name>Food</Name>
     <Amount>450</Amount>
-    <Remaining>399</Remaining>
-    <Transactions>
-      <Transaction>
-        <Description>A lot of pizza</Description>
-        <Type>0</Type>
-        <Amount>51</Amount>
-        <Date>N/A</Date>
-      </Transaction>
-    </Transactions>
+    <Remaining>450</Remaining>
+    <Transactions />
   </Budget>
   <Budget>
     <Name>Fun</Name>
