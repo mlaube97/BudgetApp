@@ -3,13 +3,13 @@
   <Budget>
     <Name>Food</Name>
     <Amount>450</Amount>
-    <Remaining>399</Remaining>
+    <Remaining>369</Remaining>
     <Transactions>
       <Transaction>
-        <Description>A lot of pizza</Description>
+        <Description>Tacos</Description>
         <Type>0</Type>
-        <Amount>51</Amount>
-        <Date>N/A</Date>
+        <Amount>30</Amount>
+        <Date>2020-08-29T00:00:00</Date>
       </Transaction>
     </Transactions>
   </Budget>

@@ -134,7 +134,7 @@ namespace MitchBudget
                 {
                     budget.Inherit(selectedBudget);
                     SetBudgetGrid();
-                    string date = "N/A";
+                    DateTime date = (DateTime)datePicker.SelectedDate;
                     string description = textboxDescription.Text;
                     int type = (int)Transaction.type.Spend;
                     float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
@@ -155,7 +155,7 @@ namespace MitchBudget
                 {
                     budget.Inherit(selectedBudget);
                     SetBudgetGrid();
-                    string date = "N/A";
+                    DateTime date = (DateTime)datePicker.SelectedDate;
                     string description = textboxDescription.Text;
                     int type = (int)Transaction.type.Receive;
                     float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);

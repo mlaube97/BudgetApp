@@ -38,9 +38,9 @@ namespace MitchBudget
             set { _amount = value; }
         }
 
-        private string _date;
+        private DateTime _date;
 
-        public string Date
+        public DateTime Date
         {
             get { return _date; }
             set { _date = value; }
@@ -50,7 +50,7 @@ namespace MitchBudget
         {
 
         }
-        public Transaction(string date, string description, int type, float amount)
+        public Transaction(DateTime date, string description, int type, float amount)
         {
             _date = date;
             _description = description;
