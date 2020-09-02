@@ -12,26 +12,12 @@ namespace MitchBudget
         private string _name;
         private float _amount;
         private float _remaining;
-        private string _month;
-        private int _year;
 
         public enum Fields
         {
             Name,
             Amount,
             Remaining
-        }
-
-        public string Month
-        {
-            get { return _month; }
-            set { _month = value; }
-        }
-
-        public int Year
-        {
-            get { return _year; }
-            set { _year = value; }
         }
 
 
