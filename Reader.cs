@@ -13,22 +13,20 @@ namespace MitchBudget
 {
     public class Reader
     {
-        public XmlNode All;
-
-        public List<Budget> ReadXML(string path)
+        public FullBudget ReadXML(string path)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(List<Budget>));
-            List<Budget> budgets = new List<Budget>();
+            XmlSerializer xs = new XmlSerializer(typeof(FullBudget));
+            FullBudget budgets = new FullBudget();
             using (var sr = new StreamReader(path))
             {
-                budgets = (List<Budget>)xs.Deserialize(sr);
+                budgets = (FullBudget)xs.Deserialize(sr);
             }
             return budgets;
         }
 
-        public void WriteXML(List<Budget> budgets, string path)
+        public void WriteXML(FullBudget budgets, string path)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(List<Budget>));
+            XmlSerializer xs = new XmlSerializer(typeof(FullBudget));
             TextWriter tw = new StreamWriter(path);
             xs.Serialize(tw, budgets);
         }

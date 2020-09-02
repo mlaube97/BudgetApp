@@ -56,8 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="XML Structure\FullBudget.cs" />
+    <Compile Include="XML Structure\Month.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="XML Structure\Year.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

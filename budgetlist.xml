@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Budget>
-    <Name>Food</Name>
-    <Amount>450</Amount>
-    <Remaining>369</Remaining>
-    <Transactions>
-      <Transaction>
-        <Description>Tacos</Description>
-        <Type>0</Type>
-        <Amount>30</Amount>
-        <Date>2020-08-29T00:00:00</Date>
-      </Transaction>
-    </Transactions>
-  </Budget>
-  <Budget>
-    <Name>Fun</Name>
-    <Amount>300</Amount>
-    <Remaining>300</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Gas</Name>
-    <Amount>100</Amount>
-    <Remaining>100</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Household</Name>
-    <Amount>200</Amount>
-    <Remaining>200</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Clothes</Name>
-    <Amount>100</Amount>
-    <Remaining>100</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Phone</Name>
-    <Amount>35</Amount>
-    <Remaining>35</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Insurance</Name>
-    <Amount>135</Amount>
-    <Remaining>135</Remaining>
-    <Transactions />
-  </Budget>
-  <Budget>
-    <Name>Rent</Name>
-    <Amount>650</Amount>
-    <Remaining>650</Remaining>
-    <Transactions />
-  </Budget>
-</ArrayOfBudget>
+<Years>
+	<Months>
+		<Month>September</Month>
+		<Budgets>
+			<Budget>
+				<Name>Food</Name>
+				<Amount>450</Amount>
+				<Remaining>369</Remaining>
+				<Transactions>
+					<Transaction>
+						<Description>Tacos</Description>
+						<Type>0</Type>
+						<Amount>30</Amount>
+						<Date>2020-08-29T00:00:00</Date>
+					</Transaction>
+				</Transactions>
+			</Budget>
+			<Budget>
+				<Name>Fun</Name>
+				<Amount>300</Amount>
+				<Remaining>300</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Gas</Name>
+				<Amount>100</Amount>
+				<Remaining>100</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Household</Name>
+				<Amount>200</Amount>
+				<Remaining>200</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Clothes</Name>
+				<Amount>100</Amount>
+				<Remaining>100</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Phone</Name>
+				<Amount>35</Amount>
+				<Remaining>35</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Insurance</Name>
+				<Amount>135</Amount>
+				<Remaining>135</Remaining>
+				<Transactions />
+			</Budget>
+			<Budget>
+				<Name>Rent</Name>
+				<Amount>650</Amount>
+				<Remaining>650</Remaining>
+				<Transactions />
+			</Budget>
+		</Budgets>
+	</Months>
+</Years>

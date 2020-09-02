@@ -27,22 +27,22 @@ namespace MitchBudget
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Budget> budgets = new List<Budget>();
-        List<Transaction> transactions = new List<Transaction>();
-        Dictionary<DataGridRow, Budget> row_to_budgets = new Dictionary<DataGridRow, Budget>();
+        FullBudget budgets = new FullBudget();
         string path = Global.xmlFile;
-
-        Budget selectedBudget = new Budget();
+        List<Budget> baseBudget = new List<Budget>();
+        Budget activeBudget = new Budget();
+        string activeMonth = "September";
+        int activeYear = 2020;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            budgets = SetBudget(path);
+            //budgets = SetBudget(path);
             SetBudgetGrid();
         }
 
-        private List<Budget> SetBudget(string path)
+        private FullBudget SetBudget(string path)
         {
             Reader reader = new Reader();
             return reader.ReadXML(path);
@@ -51,17 +51,17 @@ namespace MitchBudget
         private void SetBudgetGrid()
         {
             gridBudget.Items.Clear();
-            foreach (Budget budget in budgets)
-            {
-                gridBudget.Items.Add(budget);
-            }
+            //foreach (Budget budget in budgets.YearBudgets[)
+            //{
+            //    gridBudget.Items.Add(budget);
+            //}
         }
         private void SetTransactionGrid()
         {
             gridTransactions.Items.Clear();
-            if (selectedBudget.Transactions != null)
+            if (activeBudget.Transactions != null)
             {
-                foreach (Transaction transaction in selectedBudget.Transactions)
+                foreach (Transaction transaction in activeBudget.Transactions)
                 {
                     gridTransactions.Items.Add(transaction);
                 }
@@ -74,8 +74,13 @@ namespace MitchBudget
             if ( filled == true)
             {
                 Budget budget = new Budget(textboxName.Text, (float)Convert.ToDouble(textboxAmount.Text), (float)Convert.ToDouble(textboxRemaining.Text));
-                budgets.Add(budget);
+                Month month = new Month(activeMonth);
+                Year year = new Year(activeYear);
+                budgets[year][]
+                baseBudget.Add(budget);
+                
                 gridBudget.Items.Add(budget);
+
                 SetBudgetGrid();
             }
         }
@@ -84,12 +89,12 @@ namespace MitchBudget
         {
             buttonRemove.IsEnabled = true;
             DataGridRow row = sender as DataGridRow;
-            Budget budget = budgets[row.GetIndex()];
-            labelAmount_Transaction_Value.Content = budget.Amount;
-            labelName_Transaction_Value.Content = budget.Name;
-            labelRemaining_Transaction_Value.Content = budget.Remaining;
-            selectedBudget.Inherit(budget);
-            SetTransactionGrid();
+            //Budget budget = budgets[row.GetIndex()];
+            //labelAmount_Transaction_Value.Content = budget.Amount;
+            //labelName_Transaction_Value.Content = budget.Name;
+            //labelRemaining_Transaction_Value.Content = budget.Remaining;
+            //selectedBudget.Inherit(budget);
+            //SetTransactionGrid();
         }
         #region Load and Save
         private void buttonLoad_Click(object sender, RoutedEventArgs e)
@@ -125,14 +130,14 @@ namespace MitchBudget
         #region Button Clicks
         private void Button_Spend_Click(object sender, RoutedEventArgs e)
         {
-            Budget tempBudget = selectedBudget.Duplicate();
+            Budget tempBudget = activeBudget.Duplicate();
             float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-            selectedBudget.Spend(value);
-            foreach (Budget budget in budgets)
+            activeBudget.Spend(value);
+            foreach (Budget budget in baseBudget)
             {
                 if (Budget.Equals(budget,tempBudget))
                 {
-                    budget.Inherit(selectedBudget);
+                    budget.Inherit(activeBudget);
                     SetBudgetGrid();
                     DateTime date = (DateTime)datePicker.SelectedDate;
                     string description = textboxDescription.Text;
@@ -146,14 +151,14 @@ namespace MitchBudget
 
         private void Button_Receive_Click(object sender, RoutedEventArgs e)
         {
-            Budget tempBudget = selectedBudget.Duplicate();
+            Budget tempBudget = activeBudget.Duplicate();
             float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-            selectedBudget.Receive(value);
-            foreach (Budget budget in budgets)
+            activeBudget.Receive(value);
+            foreach (Budget budget in baseBudget)
             {
                 if (Budget.Equals(budget,tempBudget))
                 {
-                    budget.Inherit(selectedBudget);
+                    budget.Inherit(activeBudget);
                     SetBudgetGrid();
                     DateTime date = (DateTime)datePicker.SelectedDate;
                     string description = textboxDescription.Text;
@@ -175,7 +180,7 @@ namespace MitchBudget
             if (buttonRemove.IsEnabled)
             {
                 Budget budget = gridBudget.SelectedItem as Budget;
-                budgets.Remove(budget);
+                baseBudget.Remove(budget);
                 gridBudget.Items.Remove(gridBudget.SelectedItem);
                 buttonRemove.IsEnabled = false;
             }
@@ -195,11 +200,15 @@ namespace MitchBudget
             {
                 buttonTransactionRemove.IsEnabled = false;
                 Transaction transaction = gridTransactions.SelectedItem as Transaction;
-                selectedBudget.RemoveTransaction(transaction);
-                transactions.Remove(transaction);
+                activeBudget.RemoveTransaction(transaction);
                 SetTransactionGrid();
             }
         }
         #endregion
+
+        private void DataGridMonthly_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
