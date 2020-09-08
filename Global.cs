@@ -11,5 +11,6 @@ namespace MitchBudget
         public static string projectPath = @"C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget";
         public static string xmlFile = @"C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\budgetlist.xml";
         public static string defaultFile = @"C:\Users\mlaub\OneDrive\Documents\Visual Studio 2019\MitchBudget\defaultbudgetlist.xml";
+        public static List<string> Months = new List<string>() { "January", "February", "March", "April", "June", "July", "August", "September", "October", "November", "December" };
     }
 }

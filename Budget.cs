@@ -19,8 +19,6 @@ namespace MitchBudget
             Amount,
             Remaining
         }
-
-
         public string Name
         {
             get { return _name; }
