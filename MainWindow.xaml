@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MitchBudget"
         mc:Ignorable="d"
-        Title="MyBudget" Height="651.89" Width="1080.362" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+        Title="MyBudget" Height="651.89" Width="1094.762" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
     <Canvas x:Name="canvasMain" HorizontalAlignment="Left" Height="622" VerticalAlignment="Top" Width="1080" Margin="0,0,-6.4,0" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
         <Label x:Name="labelMyBudget" Content="MyBudget" Canvas.Left="10" Canvas.Top="31" Height="68" Width="239" Background="#00000000" Foreground="White" FontFamily="Britannic Bold" FontSize="48"/>
         <Canvas Height="156" Canvas.Left="10" Canvas.Top="91" Width="232" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -74,7 +74,7 @@
         </ComboBox>
         <ComboBox x:Name="MonthComboBox" Canvas.Left="672" Canvas.Top="91" Width="120" SelectionChanged="MonthComboBox_SelectionChanged">
         </ComboBox>
-        <DataGrid x:Name="DataGridMonthly" Height="482" Canvas.Left="672" Canvas.Top="132" Width="398">
+        <DataGrid x:Name="DataGridMonthly" ItemsSource="{Binding MonthTransactions}" Height="482" Canvas.Left="672" Canvas.Top="132" Width="398">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridMonthly_PreviewMouseLeftButtonDown"></EventSetter>

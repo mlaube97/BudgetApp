@@ -51,6 +51,7 @@ namespace MitchBudget
             _name = name;
             _amount = amount;
             _remaining = remaining;
+            _transactions = new List<Transaction>();
         }
         public void Spend(float value)
         {

@@ -16,12 +16,12 @@ namespace MitchBudget
             set { _value = value; }
         }
 
-        private List<Budget> budgets;
+        private List<Budget> _budgets;
 
         public List<Budget> Budgets
         {
-            get { return budgets; }
-            set { budgets = value; }
+            get { return _budgets; }
+            set { _budgets = value; }
         }
         public Month()
         {
@@ -30,6 +30,13 @@ namespace MitchBudget
         public Month(string name)
         {
             _value = name;
+            _budgets = new List<Budget>();
+        }
+        public Month(string name, Budget budget)
+        {
+            _value = name;
+            _budgets = new List<Budget>();
+            _budgets.Add(budget);
         }
     }
 }

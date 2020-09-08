@@ -32,6 +32,7 @@ namespace MitchBudget
         Budget selectedBudget = new Budget();
         string activeMonth = "September";
         int activeYear = 2020;
+        List<Transaction> MonthTransactions = new List<Transaction>();
 
         public MainWindow()
         {
@@ -64,6 +65,14 @@ namespace MitchBudget
                 {
                     gridTransactions.Items.Add(transaction);
                 }
+            }
+        }
+        private void SetMonthlyGrid()
+        {
+            DataGridMonthly.Items.Clear();
+            foreach (Transaction t in MonthTransactions)
+            {
+                DataGridMonthly.Items.Add(t);
             }
         }
         private void SetComboBoxes()
@@ -117,7 +126,6 @@ namespace MitchBudget
                 Month month = new Month(activeMonth);
                 Year year = new Year(activeYear);
                 AddToFullBudget(activeYear, activeMonth, budget);
-
                 SetBaseBudgetGrid();
             }
         }
@@ -213,13 +221,22 @@ namespace MitchBudget
         }
         private void buttonGo_Click(object sender, RoutedEventArgs e)
         {
-            activeMonth = MonthComboBox.Text;
-            activeYear = Convert.ToInt32(YearComboBox.Text);
             SetBaseBudgetGrid();
             gridTransactions.Items.Clear();
+            MonthTransactions.Clear();
+            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+            {
+                foreach (Transaction transaction in budget.Transactions)
+                {
+                    MonthTransactions.Add(transaction);
+                }
+            }
+            SetMonthlyGrid();
+
         }
         private void AddToFullBudget(int year, string month, Budget budget)
         {
+            //month + year already exists
             foreach(Year y in budgets.Years)
             {
                 if (y.Value == year)
@@ -229,10 +246,20 @@ namespace MitchBudget
                         if (m.Value == month)
                         {
                             m.Budgets.Add(budget);
+                            return;
                         }
                     }
                 }
             }
+            //month + year doesn't exist
+            foreach(Year y in budgets.Years)
+            {
+                if (y.Value == year)
+                {
+                    Month m = new Month(month, budget);
+                    y.Months.Add(m);
+                }
+            }    
         }
         private List<Budget> GetBudgetsFromMonth(int year, string month)
         {
@@ -253,15 +280,14 @@ namespace MitchBudget
             }
             return b;
         }
-
         private void MonthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            activeMonth = MonthComboBox.Text;
+            activeMonth = MonthComboBox.SelectedItem.ToString();
         }
 
         private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            activeYear = Convert.ToInt32(YearComboBox.Text);
+            activeYear = Convert.ToInt32(YearComboBox.SelectedItem);
         }
     }
 }
