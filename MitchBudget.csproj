@@ -59,7 +59,7 @@
     <Compile Include="XML Structure\FullBudget.cs" />
     <Compile Include="XML Structure\Month.cs" />
     <Compile Include="Reader.cs" />
-    <Compile Include="Transaction.cs" />
+    <Compile Include="XML Structure\Transaction.cs" />
     <Compile Include="XML Structure\Year.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -69,7 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Budget.cs" />
+    <Compile Include="XML Structure\Budget.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -94,6 +94,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\FullBudget.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

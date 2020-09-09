@@ -33,17 +33,21 @@ namespace MitchBudget
         string activeMonth = "September";
         int activeYear = 2020;
         List<Transaction> MonthTransactions = new List<Transaction>();
+        
 
         public MainWindow()
         {
             InitializeComponent();
-            MonthComboBox.Text = activeMonth;
-            YearComboBox.Text = activeYear.ToString();
-            budgets = SetFullBudget(path);
+            MonthComboBox.SelectedItem = activeMonth;
+            YearComboBox.SelectedItem = activeYear;
+            budgets = GetFullBudget(path);
             SetBaseBudgetGrid();
             SetComboBoxes();
+            InitMonthlyTransactions();
+            labelBudgetValue.Content = path;
+
         }
-        private FullBudget SetFullBudget(string path)
+        private FullBudget GetFullBudget(string path)
         {
             Reader reader = new Reader();
             return reader.ReadXML(path);
@@ -75,6 +79,17 @@ namespace MitchBudget
                 DataGridMonthly.Items.Add(t);
             }
         }
+        private void InitMonthlyTransactions()
+        {
+            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+            {
+                foreach (Transaction transaction in budget.Transactions)
+                {
+                    MonthTransactions.Add(transaction);
+                }
+            }
+            SetMonthlyGrid();
+        }
         private void SetComboBoxes()
         {
             MonthComboBox.ItemsSource = Global.Months;
@@ -91,21 +106,20 @@ namespace MitchBudget
             dialog.InitialDirectory = Global.projectPath;
             dialog.Title = "Open Budget File";
             dialog.ShowDialog();
-            budgets = SetFullBudget(dialog.FileName);
+            budgets = GetFullBudget(dialog.FileName);
             SetBaseBudgetGrid();
             SetTransactionGrid();
+            labelBudgetValue.Content = dialog.FileName;
 
         }
-
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             Reader reader = new Reader();
             reader.WriteXML(budgets, path);
         }
-
         private void buttonLoadDefault_Click(object sender, RoutedEventArgs e)
         {
-            budgets = SetFullBudget(Global.defaultFile);
+            budgets = GetFullBudget(Global.defaultFile);
             SetBaseBudgetGrid();
             SetTransactionGrid();
         }
@@ -113,6 +127,16 @@ namespace MitchBudget
         {
             Reader reader = new Reader();
             reader.WriteXML(budgets, Global.defaultFile);
+        }
+        private void buttonSaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            Reader reader = new Reader();
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.InitialDirectory = Global.projectPath;
+            dialog.Title = "Save Budget As";
+            dialog.ShowDialog();
+            string p = dialog.FileName;
+            reader.WriteXML(budgets, p);
         }
         #endregion
         #region Button Clicks
@@ -122,11 +146,19 @@ namespace MitchBudget
 
             if (filled == true)
             {
-                Budget budget = new Budget(textboxName.Text, (float)Convert.ToDouble(textboxAmount.Text), (float)Convert.ToDouble(textboxRemaining.Text));
-                Month month = new Month(activeMonth);
-                Year year = new Year(activeYear);
-                AddToFullBudget(activeYear, activeMonth, budget);
-                SetBaseBudgetGrid();
+                try
+                {
+                    Budget budget = new Budget(textboxName.Text, (float)Convert.ToDouble(textboxAmount.Text), (float)Convert.ToDouble(textboxRemaining.Text));
+                    Month month = new Month(activeMonth);
+                    Year year = new Year(activeYear);
+                    AddToFullBudget(activeYear, activeMonth, budget);
+                    SetBaseBudgetGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid Entry: \n" + ex.Message, "Invalid Entry");
+                }
+
             }
         }
         private void Button_Spend_Click(object sender, RoutedEventArgs e)
@@ -186,8 +218,6 @@ namespace MitchBudget
         {
             if (!buttonTransactionRemove.IsEnabled)
                 buttonTransactionRemove.IsEnabled = true;
-            else
-                buttonTransactionRemove.IsEnabled = false;
         }
         private void buttonTransactionRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -199,7 +229,28 @@ namespace MitchBudget
                 SetTransactionGrid();
             }
         }
+        private void buttonGo_Click(object sender, RoutedEventArgs e)
+        {
+            SetBaseBudgetGrid();
+            gridTransactions.Items.Clear();
+            MonthTransactions.Clear();
+            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+            {
+                foreach (Transaction transaction in budget.Transactions)
+                {
+                    MonthTransactions.Add(transaction);
+                }
+            }
+            SetMonthlyGrid();
+
+        }
         #endregion
+        private void CheckAddTransactionValidity()
+        {
+            bool one = datePicker.SelectedDate.HasValue;
+            bool two;
+            //TODO
+        }
         private void DataGridMonthly_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -218,21 +269,6 @@ namespace MitchBudget
             labelRemaining_Transaction_Value.Content = budget.Remaining;
             selectedBudget.Inherit(budget);
             SetTransactionGrid();
-        }
-        private void buttonGo_Click(object sender, RoutedEventArgs e)
-        {
-            SetBaseBudgetGrid();
-            gridTransactions.Items.Clear();
-            MonthTransactions.Clear();
-            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
-            {
-                foreach (Transaction transaction in budget.Transactions)
-                {
-                    MonthTransactions.Add(transaction);
-                }
-            }
-            SetMonthlyGrid();
-
         }
         private void AddToFullBudget(int year, string month, Budget budget)
         {
@@ -284,10 +320,51 @@ namespace MitchBudget
         {
             activeMonth = MonthComboBox.SelectedItem.ToString();
         }
-
         private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             activeYear = Convert.ToInt32(YearComboBox.SelectedItem);
+        }
+        private void gridBudget_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            buttonRemove.IsEnabled = true;
+            
+            //List<DataGridCell> c = (List<DataGridCell>)gridBudget.SelectedCells;
+            //Console.WriteLine(c);
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            e.Cancel = true;
+        }
+        private void gridBudget_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            IList<DataGridCellInfo> t = gridBudget.SelectedCells;
+            gridBudget.BeginEdit();
+            
+        }
+        private void buttonName_Click(object sender, RoutedEventArgs e)
+        {
+            gridBudget.Items.Clear();
+            gridTransactions.Items.Clear();
+            DataGridMonthly.Items.Clear();
+            budgets = new FullBudget();
+        }
+        private void textboxRemaining_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+        private void textboxAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private void textboxName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
