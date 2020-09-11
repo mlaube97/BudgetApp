@@ -156,54 +156,74 @@ namespace MitchBudget
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Invalid Entry: \n" + ex.Message, "Invalid Entry");
+                    MessageBox.Show("Please check all fields are filled correctly." + ex.Message, "Invalid Entry");
                 }
 
             }
         }
         private void Button_Spend_Click(object sender, RoutedEventArgs e)
         {
-            Budget tempBudget = selectedBudget.Duplicate();
-            float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-            selectedBudget.Spend(value);
-            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+            if (CheckAddTransactionValidity())
             {
-                if (Budget.Equals(budget, tempBudget))
+                Budget tempBudget = selectedBudget.Duplicate();
+                float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
+                selectedBudget.Spend(value);
+                foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
                 {
-                    budget.Inherit(selectedBudget);
-                    SetBaseBudgetGrid();
-                    DateTime date = (DateTime)datePicker.SelectedDate;
-                    string description = textboxDescription.Text;
-                    int type = (int)Transaction.type.Spend;
-                    float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-                    budget.AddTransaction(new Transaction(date, description, type, val));
-                    SetTransactionGrid();
-                    break;
+                    if (Budget.isEqual(budget, tempBudget))
+                    {
+                        budget.Inherit(selectedBudget);
+                        SetBaseBudgetGrid();
+                        DateTime date = (DateTime)datePicker.SelectedDate;
+                        string description = textboxDescription.Text;
+                        string type = "Spend";
+                        float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
+                        Transaction t = new Transaction(date, description, type, val);
+                        budget.AddTransaction(t);
+                        SetTransactionGrid();
+                        MonthTransactions.Add(t);
+                        SetMonthlyGrid();
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Check the following:\n- You have selected a date\n- The price does not contain any numbers", "Invalid Entry");
             }
         }
         private void Button_Receive_Click(object sender, RoutedEventArgs e)
         {
-            Budget tempBudget = selectedBudget.Duplicate();
-            float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-            selectedBudget.Receive(value);
-            foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+            if (CheckAddTransactionValidity())
             {
-                if (Budget.Equals(budget,tempBudget))
+                Budget tempBudget = selectedBudget.Duplicate();
+                float value = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
+                selectedBudget.Receive(value);
+                foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
                 {
-                    budget.Inherit(selectedBudget);
-                    SetBaseBudgetGrid();
-                    DateTime date = (DateTime)datePicker.SelectedDate;
-                    string description = textboxDescription.Text;
-                    int type = (int)Transaction.type.Receive;
-                    float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
-                    budget.AddTransaction(new Transaction(date, description, type, val));
-                    SetTransactionGrid();
-                    break;
+                    if (Budget.isEqual(budget, tempBudget))
+                    {
+                        budget.Inherit(selectedBudget);
+                        SetBaseBudgetGrid();
+                        DateTime date = (DateTime)datePicker.SelectedDate;
+                        string description = textboxDescription.Text;
+                        string type = "Receive";
+                        float val = (float)Convert.ToDouble(TextBox_TransactionAmount.Text);
+                        Transaction t = new Transaction(date, description, type, val);
+                        budget.AddTransaction(t);
+                        SetTransactionGrid();
+                        MonthTransactions.Add(t);
+                        SetMonthlyGrid();
+                        break;
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Check the following:\n- You have selected a date\n- The price does not contain any numbers", "Invalid Entry");
+            }
         }
-        private void buttonRemove_Click(object sender, RoutedEventArgs e)
+        private void buttonRemove_Click(object sender, RoutedEventArgs e) //budgetGrid remove button
         {
             if (buttonRemove.IsEnabled)
             {
@@ -211,6 +231,7 @@ namespace MitchBudget
                 List<Budget> b = GetBudgetsFromMonth(activeYear, activeMonth);
                 b.Remove(budget);
                 gridBudget.Items.Remove(gridBudget.SelectedItem);
+                SetMonthlyGrid();
                 buttonRemove.IsEnabled = false;
             }
         }
@@ -225,8 +246,28 @@ namespace MitchBudget
             {
                 buttonTransactionRemove.IsEnabled = false;
                 Transaction transaction = gridTransactions.SelectedItem as Transaction;
+                Budget budgetGrid = new Budget();
+                foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+                {
+                    if (Budget.isEqual(selectedBudget, budget))
+                    {
+                        if (transaction.Type == "Spend")
+                        {
+                            budget.Receive(transaction.Amount);
+                            selectedBudget = budget;
+                        }
+                        if (transaction.Type == "Receive")
+                        {
+                            budget.Spend(transaction.Amount);
+                            selectedBudget = budget;
+                        }
+                    }
+                }
                 selectedBudget.RemoveTransaction(transaction);
+                SetBaseBudgetGrid();
                 SetTransactionGrid();
+                MonthTransactions.Remove(transaction);
+                SetMonthlyGrid();
             }
         }
         private void buttonGo_Click(object sender, RoutedEventArgs e)
@@ -245,10 +286,13 @@ namespace MitchBudget
 
         }
         #endregion
-        private void CheckAddTransactionValidity()
+        private bool CheckAddTransactionValidity()
         {
             bool one = datePicker.SelectedDate.HasValue;
-            bool two;
+            int value;
+            bool two = int.TryParse(TextBox_TransactionAmount.Text, out value);
+            bool okay = (one == true) && (two == true);
+            return okay;
             //TODO
         }
         private void DataGridMonthly_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -324,30 +368,14 @@ namespace MitchBudget
         {
             activeYear = Convert.ToInt32(YearComboBox.SelectedItem);
         }
-        private void gridBudget_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            buttonRemove.IsEnabled = true;
-            
-            //List<DataGridCell> c = (List<DataGridCell>)gridBudget.SelectedCells;
-            //Console.WriteLine(c);
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            e.Cancel = true;
-        }
         private void gridBudget_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             IList<DataGridCellInfo> t = gridBudget.SelectedCells;
-            gridBudget.BeginEdit();
+            //gridBudget.BeginEdit();
             
         }
-        private void buttonName_Click(object sender, RoutedEventArgs e)
+        private void buttonNew_Click(object sender, RoutedEventArgs e)
         {
             gridBudget.Items.Clear();
             gridTransactions.Items.Clear();
@@ -365,6 +393,18 @@ namespace MitchBudget
         private void textboxName_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        private void gridBudget_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            e.Cancel = true;
+        }
+        private void gridTransactions_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            e.Cancel = true;
+        }
+        private void DataGridMonthly_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace MitchBudget
             return budget;
         }
 
-        public static bool Equals(Budget budget1, Budget budget2)
+        public static bool isEqual(Budget budget1, Budget budget2)
         {
             bool name = budget1.Name == budget2.Name;
             bool remaining = budget1.Remaining == budget2.Remaining;

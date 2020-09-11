@@ -10,56 +10,32 @@
             <Budget>
               <Name>food</Name>
               <Amount>200</Amount>
-              <Remaining>107</Remaining>
+              <Remaining>170</Remaining>
               <Transactions>
                 <Transaction>
-                  <Description>groceries</Description>
-                  <Type>0</Type>
-                  <Amount>87</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
+                  <Description>apples</Description>
+                  <Type>Receive</Type>
+                  <Amount>51</Amount>
+                  <Date>2020-09-10T00:00:00</Date>
                 </Transaction>
                 <Transaction>
-                  <Description>tacos</Description>
-                  <Type>0</Type>
-                  <Amount>10</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
-                </Transaction>
-                <Transaction>
-                  <Description>beef</Description>
-                  <Type>0</Type>
-                  <Amount>5</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
-                </Transaction>
-                <Transaction>
-                  <Description>chicken</Description>
-                  <Type>0</Type>
-                  <Amount>11</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
+                  <Description>banana</Description>
+                  <Type>Receive</Type>
+                  <Amount>12</Amount>
+                  <Date>2020-09-10T00:00:00</Date>
                 </Transaction>
               </Transactions>
             </Budget>
             <Budget>
               <Name>test1</Name>
               <Amount>1001</Amount>
-              <Remaining>269</Remaining>
+              <Remaining>218</Remaining>
               <Transactions>
                 <Transaction>
-                  <Description>asdf</Description>
-                  <Type>0</Type>
-                  <Amount>11</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
-                </Transaction>
-                <Transaction>
-                  <Description>fdfd</Description>
-                  <Type>1</Type>
-                  <Amount>122</Amount>
-                  <Date>2020-09-02T00:00:00</Date>
-                </Transaction>
-                <Transaction>
-                  <Description>googoogaga</Description>
-                  <Type>0</Type>
-                  <Amount>43</Amount>
-                  <Date>2020-09-04T00:00:00</Date>
+                  <Description>qwerty</Description>
+                  <Type>Spend</Type>
+                  <Amount>51</Amount>
+                  <Date>2020-09-10T00:00:00</Date>
                 </Transaction>
               </Transactions>
             </Budget>
