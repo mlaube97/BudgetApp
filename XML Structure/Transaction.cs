@@ -42,7 +42,7 @@ namespace MitchBudget
 
         public DateTime Date
         {
-            get { return _date; }
+            get { return _date.Date; }
             set { _date = value; }
         }
 

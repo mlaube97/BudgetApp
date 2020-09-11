@@ -10,7 +10,7 @@
             <Budget>
               <Name>food</Name>
               <Amount>200</Amount>
-              <Remaining>170</Remaining>
+              <Remaining>200</Remaining>
               <Transactions>
                 <Transaction>
                   <Description>apples</Description>
@@ -23,6 +23,12 @@
                   <Type>Receive</Type>
                   <Amount>12</Amount>
                   <Date>2020-09-10T00:00:00</Date>
+                </Transaction>
+                <Transaction>
+                  <Description>lollipop</Description>
+                  <Type>Spend</Type>
+                  <Amount>1</Amount>
+                  <Date>2020-09-07T00:00:00</Date>
                 </Transaction>
               </Transactions>
             </Budget>

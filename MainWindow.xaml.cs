@@ -90,6 +90,25 @@ namespace MitchBudget
             }
             SetMonthlyGrid();
         }
+        private List<Budget> GetBudgetsFromMonth(int year, string month)
+        {
+            List<Budget> b = new List<Budget>();
+            foreach (Year y in budgets.Years)
+            {
+                if (y.Value == year)
+                {
+                    foreach (Month m in y.Months)
+                    {
+                        if (m.Value == month)
+                        {
+                            b = m.Budgets;
+                            break;
+                        }
+                    }
+                }
+            }
+            return b;
+        }
         private void SetComboBoxes()
         {
             MonthComboBox.ItemsSource = Global.Months;
@@ -159,6 +178,32 @@ namespace MitchBudget
                     MessageBox.Show("Please check all fields are filled correctly." + ex.Message, "Invalid Entry");
                 }
 
+            }
+        }
+        private void buttonUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            bool filled = !String.IsNullOrEmpty(editBudgetAmount.Text) && !String.IsNullOrEmpty(editBudgetName.Text) && !String.IsNullOrEmpty(editBudgetRemaining.Text);
+            if (filled == true)
+            {
+                try
+                {
+                    foreach (Budget budget in GetBudgetsFromMonth(activeYear, activeMonth))
+                    {
+                        if (Budget.isEqual(budget, selectedBudget))
+                        {
+                            budget.Amount = (float)Convert.ToDouble(editBudgetAmount.Text);
+                            budget.Name = editBudgetName.Text;
+                            budget.Remaining = (float)Convert.ToDouble(editBudgetRemaining.Text);
+                            selectedBudget.Inherit(budget);
+                            break;
+                        }
+                    }
+                    SetBaseBudgetGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Please check all fields are filled correctly." + ex.Message, "Invalid Entry");
+                }
             }
         }
         private void Button_Spend_Click(object sender, RoutedEventArgs e)
@@ -293,7 +338,6 @@ namespace MitchBudget
             bool two = int.TryParse(TextBox_TransactionAmount.Text, out value);
             bool okay = (one == true) && (two == true);
             return okay;
-            //TODO
         }
         private void DataGridMonthly_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -311,6 +355,9 @@ namespace MitchBudget
             labelAmount_Transaction_Value.Content = budget.Amount;
             labelName_Transaction_Value.Content = budget.Name;
             labelRemaining_Transaction_Value.Content = budget.Remaining;
+            editBudgetAmount.Text = Convert.ToString(budget.Amount);
+            editBudgetName.Text = budget.Name;
+            editBudgetRemaining.Text = Convert.ToString(budget.Remaining);
             selectedBudget.Inherit(budget);
             SetTransactionGrid();
         }
@@ -341,25 +388,6 @@ namespace MitchBudget
                 }
             }    
         }
-        private List<Budget> GetBudgetsFromMonth(int year, string month)
-        {
-            List<Budget> b = new List<Budget>();
-            foreach (Year y in budgets.Years)
-            {
-                if (y.Value == year)
-                {
-                    foreach (Month m in y.Months)
-                    {
-                        if (m.Value == month)
-                        {
-                            b = m.Budgets;
-                            break;
-                        }
-                    }
-                }
-            }
-            return b;
-        }
         private void MonthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             activeMonth = MonthComboBox.SelectedItem.ToString();
@@ -368,7 +396,6 @@ namespace MitchBudget
         {
             activeYear = Convert.ToInt32(YearComboBox.SelectedItem);
         }
-
         private void gridBudget_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             IList<DataGridCellInfo> t = gridBudget.SelectedCells;
@@ -406,5 +433,7 @@ namespace MitchBudget
         {
             e.Cancel = true;
         }
+
+
     }
 }
