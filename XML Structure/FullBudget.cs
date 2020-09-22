@@ -19,5 +19,23 @@ namespace MitchBudget
         {
 
         }
+
+        public void Remove(Budget budget)
+        {
+            foreach (Year y in Years)
+            {
+                foreach (Month m in y.Months)
+                {
+                    foreach (Budget b in m.Budgets)
+                    {
+                        if (Budget.isEqual(budget, b))
+                        {
+                            m.Budgets.Remove(b);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

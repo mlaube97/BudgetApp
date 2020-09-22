@@ -13,19 +13,13 @@
                 <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="1"/>
             </LinearGradientBrush>
         </Canvas.Background>
-        <Label x:Name="labelMyBudget" Content="My" Canvas.Top="23" Height="68" Width="69" FontFamily="Britannic Bold" FontSize="48" Background="{x:Null}">
+        <Label x:Name="labelMyBudget" Content="My" Canvas.Top="30" Height="68" Width="69" FontFamily="Britannic Bold" FontSize="48" Background="{x:Null}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
             <Label.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="1"/>
                 </LinearGradientBrush>
             </Label.BorderBrush>
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
         </Label>
         <Canvas Height="154" Canvas.Left="227" Canvas.Top="91" Width="197" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <Label x:Name="labelName" Content="Name: " Canvas.Top="2" Width="48" Height="24" Canvas.Left="1"/>
@@ -90,25 +84,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="buttonTransactionRemove" Content="Remove" Canvas.Left="578" Canvas.Top="584" Width="76" Click="buttonTransactionRemove_Click" IsEnabled="False"/>
-        <Label x:Name="labelMyBudget_Copy" Content="Base Budget" Canvas.Left="38" Canvas.Top="245" Height="35" Width="148" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Label x:Name="labelMyBudget_Copy1" Content="Transactions" Canvas.Left="358" Canvas.Top="244" Height="34" Width="148" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
+        <Label x:Name="labelMyBudget_Copy" Content="Base Budget" Canvas.Left="38" Canvas.Top="245" Height="35" Width="148" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="labelMyBudget_Copy1" Content="Transactions" Canvas.Left="358" Canvas.Top="244" Height="34" Width="148" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
         <ComboBox x:Name="YearComboBox" Canvas.Left="832" Canvas.Top="91" Width="120" SelectionChanged="YearComboBox_SelectionChanged"/>
         <ComboBox x:Name="MonthComboBox" Canvas.Left="695" Canvas.Top="91" Width="120" SelectionChanged="MonthComboBox_SelectionChanged"/>
-        <DataGrid x:Name="DataGridMonthly" ItemsSource="{Binding MonthTransactions}" Height="482" Canvas.Left="672" Canvas.Top="132" Width="398" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BeginningEdit="DataGridMonthly_BeginningEdit" BorderBrush="{x:Null}">
+        <DataGrid x:Name="DataGridMonthly" ItemsSource="{Binding MonthTransactions}" Height="495" Canvas.Left="672" Canvas.Top="119" Width="398" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BeginningEdit="DataGridMonthly_BeginningEdit" BorderBrush="{x:Null}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="DataGridMonthly_PreviewMouseLeftButtonDown"/>
@@ -121,23 +101,9 @@
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="labelMyBudget_Copy2" Content="Month" Canvas.Left="714" Canvas.Top="53" Height="35" Width="77" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Label x:Name="labelMyBudget_Copy3" Content="Year" Canvas.Left="864" Canvas.Top="56" Height="35" Width="77" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Button x:Name="buttonGo" Content="Go" Canvas.Left="969" Canvas.Top="94" Width="75" Click="buttonGo_Click"/>
+        <Label x:Name="labelMyBudget_Copy2" Content="Month" Canvas.Left="714" Canvas.Top="53" Height="35" Width="77" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="labelMyBudget_Copy3" Content="Year" Canvas.Left="864" Canvas.Top="56" Height="35" Width="77" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Button x:Name="buttonGo" Content="Go" Canvas.Left="969" Canvas.Top="93" Width="74" Click="buttonGo_Click"/>
         <Canvas Height="30" Width="1082" Background="#FFF0F0F0">
             <Button x:Name="buttonSave" Content="Save" Canvas.Left="87" Canvas.Top="5" Width="76" Click="buttonSave_Click"/>
             <Button x:Name="buttonLoad" Content="Load" Canvas.Left="249" Canvas.Top="5" Width="76" Click="buttonLoad_Click"/>
@@ -146,35 +112,15 @@
             <Label x:Name="labelBudgetValue" Content="---" Canvas.Left="381" Canvas.Top="2"/>
             <Button x:Name="buttonNew" Content="New" Canvas.Left="6" Canvas.Top="5" Width="76" Click="buttonNew_Click"/>
         </Canvas>
-        <Label x:Name="labelMyBudget_Copy4" Content="Add Transaction" Canvas.Left="453" Canvas.Top="53" Height="34" Width="184" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Label x:Name="labelMyBudget_Copy5" Content="Add Budget" Canvas.Left="260" Canvas.Top="54" Height="37" Width="132" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1"/>
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Label x:Name="labelMyBudget_Copy6" Content="Budget" Canvas.Left="58" Canvas.Top="47" Height="68" Width="166" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="48">
+        <Label x:Name="labelMyBudget_Copy4" Content="Add Transaction" Canvas.Left="453" Canvas.Top="53" Height="34" Width="184" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="labelMyBudget_Copy5" Content="Add Budget" Canvas.Left="260" Canvas.Top="54" Height="37" Width="132" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="24" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="labelMyBudget_Copy6" Content="Budget" Canvas.Left="58" Canvas.Top="47" Height="68" Width="166" Background="{x:Null}" FontFamily="Britannic Bold" FontSize="48" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
             <Label.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Label.BorderBrush>
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1"/>
-                    <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
         </Label>
         <Canvas Height="102" Canvas.Left="10" Canvas.Top="143" Width="212" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <Label x:Name="labelName1" Content="Name: " Canvas.Top="2" Width="48" Height="24" Canvas.Left="1"/>

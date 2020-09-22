@@ -96,6 +96,13 @@ namespace MitchBudget
             bool equals = name && remaining && amount;
             return equals;
         }
+        public void Empty()
+        {
+            _transactions.Clear();
+            _name = "";
+            _amount = 0;
+            _remaining = 0;
+        }
 
     }
 

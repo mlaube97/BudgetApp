@@ -273,10 +273,16 @@ namespace MitchBudget
             if (buttonRemove.IsEnabled)
             {
                 Budget budget = gridBudget.SelectedItem as Budget;
-                List<Budget> b = GetBudgetsFromMonth(activeYear, activeMonth);
-                b.Remove(budget);
+                budgets.Remove(budget);
                 gridBudget.Items.Remove(gridBudget.SelectedItem);
+                foreach (Transaction t in budget.Transactions)
+                {
+                    if (MonthTransactions.Contains(t))
+                        MonthTransactions.Remove(t);
+                }
+                selectedBudget.Empty();
                 SetMonthlyGrid();
+                gridTransactions.Items.Clear();
                 buttonRemove.IsEnabled = false;
             }
         }
@@ -404,6 +410,11 @@ namespace MitchBudget
         }
         private void buttonNew_Click(object sender, RoutedEventArgs e)
         {
+            labelAmount_Transaction_Value.Content = "...";
+            labelName_Transaction_Value.Content = "...";
+            labelRemaining_Transaction_Value.Content = "...";
+            TextBox_TransactionAmount.Text = "0";
+            datePicker.DisplayDate = DateTime.Today;
             gridBudget.Items.Clear();
             gridTransactions.Items.Clear();
             DataGridMonthly.Items.Clear();

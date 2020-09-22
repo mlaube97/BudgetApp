@@ -45,6 +45,25 @@
                 </Transaction>
               </Transactions>
             </Budget>
+            <Budget>
+              <Name>test1</Name>
+              <Amount>1001</Amount>
+              <Remaining>218</Remaining>
+              <Transactions>
+                <Transaction>
+                  <Description>qwerty</Description>
+                  <Type>Spend</Type>
+                  <Amount>51</Amount>
+                  <Date>2020-09-10T00:00:00</Date>
+                </Transaction>
+              </Transactions>
+            </Budget>
+            <Budget>
+              <Name>mckenna</Name>
+              <Amount>10</Amount>
+              <Remaining>6</Remaining>
+              <Transactions />
+            </Budget>
           </Budgets>
         </Month>
         <Month>
